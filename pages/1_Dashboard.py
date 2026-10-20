@@ -1,0 +1,5 @@
+import streamlit as st
+from components.common import apply_style
+from components.sidebar import render_sidebar
+from components.dashboard_view import render_dashboard
+apply_style(); render_sidebar(); render_dashboard()
