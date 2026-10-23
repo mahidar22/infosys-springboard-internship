@@ -31,6 +31,13 @@ def validate_lead_payload(payload: dict[str, Any]) -> list[str]:
     errors = require_text(payload.get("company_name"), "Company name")
     errors += validate_email(payload.get("email"), required=False)
     errors += validate_url(payload.get("website"))
-    if payload.get("company_size") and str(payload["company_size"]).strip() not in {"1-10", "11-50", "51-200", "201-1000", "1000+", "Unknown"}:
+    company_size = str(payload.get("company_size") or "").strip()
+    if company_size and company_size not in {"1-10", "11-50", "51-200", "201-1000", "1000+", "Unknown"}:
         errors.append("Select a valid company size.")
+    status = str(payload.get("status") or "").strip()
+    if status and status not in {"New", "Active", "Inactive", "Closed"}:
+        errors.append("Select a valid status.")
+    stage = str(payload.get("stage") or "").strip()
+    if stage and stage not in {"Prospecting", "Discovery", "Qualified", "Proposal", "Negotiation", "Closed Won", "Closed Lost"}:
+        errors.append("Select a valid sales stage.")
     return errors
