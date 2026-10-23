@@ -8,3 +8,10 @@ def test_optional_valid_fields_pass():
     assert validate_email("")==[]
     assert validate_url("https://example.com")==[]
     assert validate_lead_payload({"company_name":"Acme","email":"a@b.com","website":"example.com","company_size":"51-200"})==[]
+    assert validate_lead_payload({"company_name":"Acme","company_size":"","status":"","stage":""})==[]
+
+
+def test_invalid_status_and_stage_are_rejected():
+    errors=validate_lead_payload({"company_name":"Acme","status":"Pending","stage":"Won"})
+    assert "Select a valid status." in errors
+    assert "Select a valid sales stage." in errors

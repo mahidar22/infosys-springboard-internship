@@ -46,7 +46,11 @@ Authentication is configurable: when `SALES_GENIE_BACKEND_TOKEN` is present the 
 }
 ```
 
-`LeadWrite` omits `id` and may omit optional fields. The frontend validates company name, email format if supplied, and URL shape before sending; the backend remains authoritative for validation errors.
+`LeadWrite` omits `id` and may omit optional fields. The frontend validates company name, email format if supplied, URL shape, company size, status, and stage before sending; the backend remains authoritative for validation errors.
+
+### CSV import
+
+Lead Management accepts UTF-8 CSV files with a required `company_name` column and optional `contact_name`, `email`, `website`, `industry`, `company_size`, `prospect_role`, `status`, `stage`, and `company_description` columns. The UI previews and validates rows before enabling import, then sends a normalized CSV with those canonical headers to `POST /leads/import`. Invalid non-empty rows block the whole upload; empty rows are skipped. Blank optional fields remain blank rather than being filled with made-up defaults. The downloadable template contains headers only.
 
 ### `Analytics`
 
@@ -72,4 +76,4 @@ Structured AI models are serialized from Pydantic in `ai/schemas.py`. `research`
 
 ## Demo adapter
 
-`integrations/mock_backend.py` implements this same adapter in process, with `_demo: true` / source metadata. It is only selected when `SALES_GENIE_DEMO_MODE=true`; it is not a production integration or persistent store.
+`integrations/mock_backend.py` implements this same adapter in process, with `_demo: true` / source metadata. It is only selected when `SALES_GENIE_DEMO_MODE=true`; it is not a production integration or persistent store. It starts empty rather than loading sample leads or follow-up records. Create leads or import a CSV to add data for the current process.

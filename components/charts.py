@@ -9,11 +9,11 @@ def dashboard_charts(analytics:dict)->None:
     with c1:
         st.subheader("Pipeline distribution")
         if not pipe.empty: st.plotly_chart(px.funnel(pipe,x="count",y="stage",color="stage",color_discrete_sequence=px.colors.sequential.Blues_r),use_container_width=True)
-        else: st.info("Pipeline distribution was not provided by the backend.")
+        else: st.info("No pipeline data is available yet.")
     with c2:
         st.subheader("Lead score distribution")
         if not scores.empty: st.plotly_chart(px.bar(scores,x="band",y="count",color="band",color_discrete_sequence=px.colors.sequential.Teal),use_container_width=True)
-        else: st.info("Lead-score distribution was not provided by the backend.")
+        else: st.info("No saved lead-score data is available yet.")
     st.subheader("Sales activity trend")
     if not activity.empty: st.plotly_chart(px.line(activity,x="date",y="activity",markers=True,color_discrete_sequence=["#2563eb"]),use_container_width=True)
-    else: st.info("Activity-trend data was not provided by the backend.")
+    else: st.info("No activity-trend data is available yet.")

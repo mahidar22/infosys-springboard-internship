@@ -2,7 +2,7 @@
 
 A Streamlit **frontend and AI-intelligence layer** for sales teams. It provides lead views, evidence-aware research and qualification, editable outreach drafts, explainable lead scoring, transcript intelligence, follow-up recommendations, and sales analytics interpretation.
 
-> **Scope boundary:** this repository does not implement a backend API, database, authentication, migrations, direct SQL, message delivery, or persistent storage. It connects to the separately-owned backend through `services/api_client.py`. Demo mode uses a visibly labelled in-memory adapter and deterministic mock AI so the product remains usable without paid credentials.
+> **Scope boundary:** this repository does not implement a backend API, database, authentication, migrations, direct SQL, message delivery, or persistent storage. It connects to the separately-owned backend through `services/api_client.py`. Demo mode uses a visibly labelled, initially empty in-memory adapter and deterministic mock AI so the product remains usable without paid credentials.
 
 ## Features
 
@@ -18,6 +18,7 @@ A Streamlit **frontend and AI-intelligence layer** for sales teams. It provides 
 - Configurable mock/OpenAI/Gemini provider abstraction, retry policy, timeout configuration, and execution activity log.
 - Configurable rule-based lead scoring with factor-level explanations. It intentionally does **not** label heuristic results as conversion probabilities.
 - Browser review/edit controls and backend save actions; no outreach is sent automatically.
+- CSV lead import with a blank template, column/row validation, a preview, and an explicit backend import action.
 
 ## Quick start
 
@@ -33,7 +34,7 @@ cp .env.example .env  # then export/load these variables with your preferred dot
 streamlit run app.py
 ```
 
-The default configuration is demo mode. It shows an in-app banner and returns deterministic demo data / AI output; none of it represents real business analytics or external company research.
+The default configuration is demo mode. It shows an in-app banner and starts with no lead or follow-up records preloaded. Create a lead or upload your own CSV from **Lead Management → Import CSV** to populate the in-memory demo backend. AI output is deterministic demo output; it is not external company research, and demo records are not persisted across app restarts.
 
 Run tests:
 
